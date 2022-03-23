@@ -1,0 +1,58 @@
+points = 11; % Eleven evenly spced points
+
+Start = 0; % a = 0
+End = 3; % b = 3
+
+N = points - 1;
+h = (End - Start)/N; % Step size
+L = linspace(Start, End, points);
+f = func(L);
+I = 0;
+
+NEven = 0; 
+NOdd = 0;
+NEnd = 0;
+Check = 0;
+
+if rem(N,2) == 0
+    disp('N is Even -> Do not use the 3/8ths Rule.')
+    NEven = N;
+    NOdd = N-1;
+    NEnd = N+1;
+    Check = 2;
+elseif rem(N,2)  ~= 0
+    disp('N is Odd -> Use the 3/8ths')
+    NEven = N-5; 
+    NOdd = N-4; 
+    NEnd = N-3; 
+    Check = 3;
+    I = I + (3*h/8)*(f(N-2)+3*f(N-1)+3*f(N)+f(N+1));
+end
+
+if N >= Check
+    if N == 3
+        disp('4 Points -> Do not use 1/3rd Rule')
+    else
+        disp('Using Simpsons 1/3rd Rule:')
+        I = I + (h/3)*f(1);
+        for i = 2:2:NEven
+            I = I + (h/3)*4*f(i);
+        end
+        for j = 3:2:NOdd
+            I = I + (h/3)*2*f(j);
+        end
+        I = I+(h/3)*f(NEnd);
+    end
+    disp("I = ")
+    disp(I)
+else
+    disp('Insufficient N to perform numerical integration')
+end
+
+
+%% Describe the detail of implementation of the method to the current problem, including the step size, and the result of the computation:
+% The code utilizes the 1/3rd rule for even numbered sections and the 3/8th rule for odd numered sections. N, the number of sections, is calculated by N = (# points) - 1. Eleven evenly spaced points produces the value N = 10. Because N is even, only the 1/3rd rules is used to solve.
+
+function F = func(x)
+F = (10/3).*(x.^2.*sqrt(9-x.^2));
+end
