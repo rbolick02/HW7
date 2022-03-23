@@ -51,7 +51,10 @@ end
 
 
 %% Describe the detail of implementation of the method to the current problem, including the step size, and the result of the computation:
-% The code utilizes the 1/3rd rule for even numbered sections and the 3/8th rule for odd numered sections. N, the number of sections, is calculated by N = (# points) - 1. Eleven evenly spaced points produces the value N = 10. Because N is even, only the 1/3rd rules is used to solve.
+% The code utilizes the 1/3rd rule for even numbered sections and the 3/8th rule for odd numered sections.
+% N, the number of sections, is calculated by N = (# points) - 1.
+% Eleven evenly spaced points produces the value N = 10.
+% Because N is even, only the 1/3rd rules is used to solve.
 
 function F = func(x)
 F = (10/3).*(x.^2.*sqrt(9-x.^2));
